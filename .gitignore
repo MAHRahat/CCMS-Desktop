@@ -140,4 +140,4 @@ cython_debug/
 .idea/
 
 #avoid db files
-db/
+db/*.db
