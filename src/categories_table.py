@@ -148,6 +148,9 @@ class CategoriesWidget(QWidget):
             show_error("Empty item")
             self.table.removeRow(row)
             return
+        if current_item.text() == "-1":
+            self.table.removeRow(row)
+            return
         cat_id = current_item.text()
         if cat_id is None:
             show_error("Empty id")
