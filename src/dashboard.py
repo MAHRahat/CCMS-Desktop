@@ -105,7 +105,7 @@ class QDashboard(QMainWindow):
 
     def setup_side_buttons(self):
         self.sideBarMenuFrame.setStyleSheet(
-            "QPushButton{ padding: 6 12 6 12; text-align:left; border:0; border-radius:2px; background-color:#01796f; } QPushButton::hover { padding: 6 12 6 12; text-align:left;  border:0; background-color:#004040; }"
+            "QPushButton{ padding: 6 12 6 12; text-align:left; border:0; border-radius:2px; background-color:#01796f; color:#ffffff;} QPushButton::hover { padding: 6 12 6 12; text-align:left;  border:0; background-color:#004040; color:#ffffff;}"
         )
 
     def add_new_remove_old(self):
@@ -172,7 +172,7 @@ class QDashboard(QMainWindow):
         :return: None
         """
         self.logoutButton.setStyleSheet(
-            "border:0;border-radius:2px;background-color:#004040;"
+            "border:0;border-radius:2px;background-color:#004040;color:#ffffff;"
         )
         try:
             conn = db_create_connection()
