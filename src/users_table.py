@@ -37,6 +37,7 @@ class UsersTable(QTableWidget):
         table_header.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
         table_header.setSectionResizeMode(QHeaderView.Interactive)
         table_header.setSortIndicatorShown(True)
+        self.setSortingEnabled(True)
 
     def fetch_n_show(self):
         """
@@ -109,6 +110,7 @@ class CitizensTable(QTableWidget):
         table_header.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
         table_header.setSectionResizeMode(QHeaderView.Interactive)
         table_header.setSortIndicatorShown(True)
+        self.setSortingEnabled(True)
 
     def fetch_n_show(self):
         """
@@ -180,6 +182,7 @@ class EmployeesTable(QTableWidget):
         table_header.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
         table_header.setSectionResizeMode(QHeaderView.Interactive)
         table_header.setSortIndicatorShown(True)
+        self.setSortingEnabled(True)
 
     def fetch_n_show(self):
         """
