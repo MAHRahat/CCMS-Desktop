@@ -30,6 +30,8 @@ class QDashboard(QMainWindow):
         self.s_w = QtWidgets.QStackedWidget()
         self.new_widget = None
         self.old_widget = None
+        self.new_btn = None
+        self.old_btn = None
         self.animation_side_bar = QPropertyAnimation(self.sideBarContainer, b"maximumWidth")
         self.move_to_center()
         self.check_logged_in()
@@ -101,41 +103,61 @@ class QDashboard(QMainWindow):
         self.animation_side_bar.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
         self.animation_side_bar.start()
 
+    def setup_side_buttons(self):
+        self.sideBarMenuFrame.setStyleSheet(
+            "QPushButton{ padding: 6 12 6 12; text-align:left; border:0; border-radius:2px; background-color:#01796f; } QPushButton::hover { padding: 6 12 6 12; text-align:left;  border:0; background-color:#004040; }"
+        )
+
     def add_new_remove_old(self):
         """
         Displays a new widget in the 'main' area and removes the old one.
         :return: None
         """
-        if self.old_widget == self.new_widget:
-            return
         self.s_w.addWidget(self.new_widget)
         if self.old_widget is not None:
             self.s_w.removeWidget(self.old_widget)
         self.old_widget = self.new_widget
+        if self.old_btn is not None:
+            self.old_btn.setStyleSheet(
+                "{padding: 6 12 6 12; text-align:left; border:0; border-radius:2px; background-color:#01796f;} :hover { padding: 6 12 6 12; text-align:left;  border:0; background-color:#004040; }"
+            )
+        self.setup_side_buttons()
+        if self.new_btn is not None:
+            self.new_btn.setStyleSheet(
+                "border:0; border-radius:2px; background-color:#004040;"
+            )
+        self.old_btn = self.new_btn
 
     def display_profile(self):
         self.new_widget = ProfileInfo()
+        self.new_btn = self.btnProfile
         self.add_new_remove_old()
 
     def display_citizens(self):
         self.new_widget = CitizensTable()
+        self.new_btn = self.btnCitizens
         self.add_new_remove_old()
 
     def display_employees(self):
         self.new_widget = EmployeesTable()
+        self.new_btn = self.btnEmployees
         self.add_new_remove_old()
 
     def display_categories(self):
         self.new_widget = CategoriesWidget()
+        self.new_btn = self.btnCategories
         self.add_new_remove_old()
 
     def display_complaints_new(self):
+        self.new_btn = self.btnComplaintsNew
         self.display_complaints("Submitted")
 
     def display_complaints_pending(self):
+        self.new_btn = self.btnComplaintsPending
         self.display_complaints("Assigned")
 
     def display_complaints_resolved(self):
+        self.new_btn = self.btnComplaintsResolved
         self.display_complaints("Resolved")
 
     def display_complaints(self, complaints_status):
@@ -149,6 +171,9 @@ class QDashboard(QMainWindow):
         Sends a POST request to the server to log out and deletes local data, then exits
         :return: None
         """
+        self.logoutButton.setStyleSheet(
+            "border:0;border-radius:2px;background-color:#004040;"
+        )
         try:
             conn = db_create_connection()
             auth_token = db_select_auth_table(conn)
