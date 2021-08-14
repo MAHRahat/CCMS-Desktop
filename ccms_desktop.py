@@ -33,5 +33,6 @@ if __name__ == '__main__':
     cp = QDesktopWidget().availableGeometry().center()
     fg.moveCenter(cp)
     widget.move(fg.topLeft())
+    widget.setWindowTitle("City Complaints Management System")
     widget.show()
     sys.exit(app.exec())
