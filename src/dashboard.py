@@ -8,7 +8,7 @@ from requests import exceptions
 
 from src.categories_table import CategoriesWidget
 from src.ccms_constants import *
-from src.complaints_table import ComplaintsTable
+from src.complaints_table import ComplaintsWidget
 from src.db import *
 from src.msg import show_error, show_success
 from src.profile import ProfileInfo
@@ -139,7 +139,7 @@ class QDashboard(QMainWindow):
         self.display_complaints("Resolved")
 
     def display_complaints(self, complaints_status):
-        self.new_widget = ComplaintsTable()
+        self.new_widget = ComplaintsWidget()
         self.new_widget.set_complaints_status(complaints_status)
         self.new_widget.fetch_n_show()
         self.add_new_remove_old()
