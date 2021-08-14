@@ -105,10 +105,9 @@ class ComplaintsTable(QTableWidget):
         self.setup_elements()
 
     def setup_elements(self):
-        self.clearContents()  # clears all data excluding header
-        self.clear()  # clears all data items including header
-        self.setRowCount(0)  # deletes blank rows, must required
-        # self.verticalHeader().hide()
+        self.clearContents()
+        self.clear()
+        self.setRowCount(0)
         self.setColumnCount(len(self.header_list))
         self.setHorizontalHeaderLabels(self.header_list)
         self.setAlternatingRowColors(True)
@@ -118,7 +117,7 @@ class ComplaintsTable(QTableWidget):
         table_header.setMinimumSectionSize(150)
         table_header.setDefaultSectionSize(150)
         table_header.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
-        table_header.setSectionResizeMode(QHeaderView.Interactive)  # InterActive, Fixed, ResizeToContents, Stretch
+        table_header.setSectionResizeMode(QHeaderView.Interactive)
         table_header.setSortIndicatorShown(True)
 
     def fetch_n_show(self):
@@ -158,9 +157,9 @@ class ComplaintsTable(QTableWidget):
                 row_items = [
                     QTableWidgetItem(str(row_json['complaints_id'])),
                     QTableWidgetItem(row_json['description']),
-                    QTableWidgetItem(str(row_json['category_id'])),
+                    QTableWidgetItem(str(row_json['category_name'])),
                     QTableWidgetItem(str(row_json['status'])),
-                    QTableWidgetItem(str(row_json['citizen_id'])),
+                    QTableWidgetItem(str(row_json['citizen_name'])),
                     QTableWidgetItem(row_json['time_submitted'])
                 ]
                 for column in range(self.columns):
