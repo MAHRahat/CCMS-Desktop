@@ -317,6 +317,19 @@ border-radius:2px;
               <height>16777215</height>
              </size>
             </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+border: 0;
+border-radius:2px;
+background-color:#01796f;
+}
+
+QPushButton::hover {
+border: 0;
+background-color:#004040;
+}
+</string>
+            </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
