@@ -1,6 +1,9 @@
 import os
 import sqlite3
+from pathlib import Path
 from sqlite3 import Error
+
+from src.ccms_constants import APP_DIR
 
 DB_NAME = "ccms_desktop.db"
 CREATE_TBL_AUTH = """
@@ -31,8 +34,9 @@ def db_create_connection():
     :return: connection if successful, None otherwise.
     """
     conn = None
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    db_dir = os.path.join(base_dir, "db")
+    user_home_dir = str(Path.home())
+    db_dir = os.path.join(user_home_dir, APP_DIR, "db")
+    Path(db_dir).mkdir(parents=True, exist_ok=True)
     try:
         conn = sqlite3.connect(os.path.join(db_dir, DB_NAME))
     except Error as err:
