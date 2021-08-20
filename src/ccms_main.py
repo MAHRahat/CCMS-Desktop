@@ -7,6 +7,7 @@ from validate_email import validate_email as validate_email
 from src.ccms_constants import *
 from src.dashboard import QDashboard
 from src.db import *
+from src.msg import show_error, show_success
 
 
 class CCMSMain(QWidget):
@@ -79,47 +80,36 @@ class Register(QWidget):
         password1 = self.passField1.text()
         password2 = self.passField2.text()
         is_valid = True
-        if validate_email(email=reg_email):
-            self.labelMsgEmail.setStyleSheet("color:green;")
-            self.labelMsgEmail.setText("Email address seems ok")
-        else:
-            self.labelMsgEmail.setStyleSheet("color:red;")
-            self.labelMsgEmail.setText("Invalid email address!")
+        if not validate_email(email=reg_email):
+            show_error("Invalid email address!")
             is_valid = False
-        if MIN_PASSWORD_LENGTH <= len(password1) <= MAX_PASSWORD_LENGTH:  # TODO more validity checks
-            self.labelMsgPass1.setStyleSheet("color:green;")
-            self.labelMsgPass1.setText("Password seems ok")
-        else:
-            self.labelMsgPass1.setStyleSheet("color:red;")
-            self.labelMsgPass1.setText(
+        if not (MIN_PASSWORD_LENGTH <= len(password1) <= MAX_PASSWORD_LENGTH):  # TODO more validity checks
+            show_error(
                 "Password length should be between " + str(MIN_PASSWORD_LENGTH) + " and " + str(MAX_PASSWORD_LENGTH))
             is_valid = False
-        if password1 == password2 and MIN_PASSWORD_LENGTH <= len(password2) <= MAX_PASSWORD_LENGTH:
-            self.labelMsgPass2.setStyleSheet("color:green;")
-            self.labelMsgPass2.setText("Passwords matched")
-        else:
-            self.labelMsgPass2.setStyleSheet("color:red;")
-            self.labelMsgPass2.setText("Passwords don't match")
+        if not (password1 == password2 and MIN_PASSWORD_LENGTH <= len(password2) <= MAX_PASSWORD_LENGTH):
+            show_error("Passwords don't match")
             is_valid = False
         if not is_valid:
             return
         register_url = SERVER_URL + EP_REGISTER
         register_data = {"email": reg_email, "password1": password1, "password2": password2}
-        self.labelMsgRegister.setStyleSheet("color:red;")
         try:
             reg_response = requests.post(url=register_url, data=register_data)  # data, json both seems ok
             reg_response.raise_for_status()
             if reg_response.status_code == 201:
-                self.labelMsgRegister.setStyleSheet("color:green;")
-                self.labelMsgRegister.setText("Registration successful, check email!")
+                self.emailField.setText("")
+                self.passField1.setText("")
+                self.passField2.setText("")
+                show_success("Registration successful, check email!")
             else:
-                self.labelMsgRegister.setText("Registration failed, try again!")
+                show_error("Registration failed, try again!")
         except exceptions.ConnectTimeout:
-            self.labelMsgRegister.setText('Connection Timeout')
+            show_error('Connection Timeout')
         except exceptions.ConnectionError:
-            self.labelMsgRegister.setText('Connection Error')
+            show_error('Connection Error')
         except IOError:
-            self.labelMsgRegister.setText('Error')
+            show_error('Error')
 
 
 class Login(QWidget):
@@ -156,26 +146,17 @@ class Login(QWidget):
         login_email = self.emailField.text().strip().lower()
         password = self.passField.text()
         is_valid = True
-        if validate_email(email=login_email):
-            self.labelMsgEmail.setStyleSheet("color:green;")
-            self.labelMsgEmail.setText("Email address seems ok")
-        else:
-            self.labelMsgEmail.setStyleSheet("color:red;")
-            self.labelMsgEmail.setText("Invalid email address!")
+        if not validate_email(email=login_email):
+            show_error("Invalid email address!")
             is_valid = False
-        if MIN_PASSWORD_LENGTH <= len(password) <= MAX_PASSWORD_LENGTH:  # TODO more validity checks
-            self.labelMsgPass.setStyleSheet("color:green;")
-            self.labelMsgPass.setText("Password seems ok")
-        else:
-            self.labelMsgPass.setStyleSheet("color:red;")
-            self.labelMsgPass.setText(
+        if not (MIN_PASSWORD_LENGTH <= len(password) <= MAX_PASSWORD_LENGTH):  # TODO more validity checks
+            show_error(
                 "Password length should be between " + str(MIN_PASSWORD_LENGTH) + " and " + str(MAX_PASSWORD_LENGTH))
             is_valid = False
         if not is_valid:
             return
         login_url = SERVER_URL + EP_LOGIN
         login_data = {"email": login_email, "password": password}
-        self.labelMsgLogin.setStyleSheet("color:red;")
         try:
             login_response = requests.post(url=login_url, json=login_data)
             if login_response.status_code == 200:
@@ -185,9 +166,11 @@ class Login(QWidget):
                 db_delete_auth_table(conn)
                 db_insert_auth_table(conn, "token", auth_token)
                 conn.close()
-                self.labelMsgLogin.setStyleSheet("color:green;")
-                self.labelMsgLogin.setText("Successfully signed in")
+                self.emailField.setText("")
+                self.passField.setText("")
+                show_success("Successfully signed in")
                 pw = self.parentWidget()
+                pw.addWidget(QDashboard())
                 pw.addWidget(QDashboard())
                 pw.removeWidget(self)
                 pw.setMinimumSize(800, 600)
@@ -197,10 +180,10 @@ class Login(QWidget):
                 fg.moveCenter(cp)
                 pw.move(fg.topLeft())
             else:
-                self.labelMsgLogin.setText("Failed, try again!")
+                show_error("Failed, try again!")
         except exceptions.ConnectTimeout:
-            self.labelMsgLogin.setText('Connection Timeout')
+            show_error('Connection Timeout')
         except exceptions.ConnectionError:
-            self.labelMsgLogin.setText('Connection Error')
+            show_error('Connection Error')
         except IOError:
-            self.labelMsgLogin.setText('Error')
+            show_error('Error')
