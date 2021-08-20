@@ -18,6 +18,10 @@
   <property name="windowTitle">
    <string>Profile</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../icons/ccms_desktop_logo.ico</normaloff>../icons/ccms_desktop_logo.ico</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">.QFrame{
 border:none;

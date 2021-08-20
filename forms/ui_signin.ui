@@ -25,6 +25,10 @@
   <property name="windowTitle">
    <string>Sign in to your account</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../icons/ccms_desktop_logo.ico</normaloff>../icons/ccms_desktop_logo.ico</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true"/>
   </property>

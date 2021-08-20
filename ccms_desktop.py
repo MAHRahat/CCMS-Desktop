@@ -1,7 +1,8 @@
+import os
 import sys
 from sqlite3 import Error
 
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtWidgets import QApplication, QDesktopWidget
 
 from src.ccms_main import CCMSMain
@@ -11,6 +12,8 @@ from src.db import db_create_connection, db_create_auth_table, db_select_auth_ta
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     widget = QtWidgets.QStackedWidget()
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    icon_dir = os.path.join(base_dir, "icons")
     is_signed_in = False
     try:
         conn = db_create_connection()
@@ -34,5 +37,6 @@ if __name__ == '__main__':
     fg.moveCenter(cp)
     widget.move(fg.topLeft())
     widget.setWindowTitle("City Complaints Management System")
+    widget.setWindowIcon(QtGui.QIcon(os.path.join(icon_dir, "ccms_desktop_logo.ico")))
     widget.show()
     sys.exit(app.exec())
