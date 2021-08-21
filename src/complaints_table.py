@@ -100,7 +100,7 @@ class ComplaintsTable(QTableWidget):
     def __init__(self):
         super(ComplaintsTable, self).__init__()
         self.complaints_status = None
-        self.header_list = ['id', 'Complaint Text', 'Category', 'Status', 'Submitted by', 'Submission Time']
+        self.header_list = ['ID', 'Complaint Text', 'Category', 'Status', 'Location', 'Submitted by', 'Submission Time']
         self.columns = len(self.header_list)
         self.setup_elements()
 
@@ -162,6 +162,7 @@ class ComplaintsTable(QTableWidget):
                     QTableWidgetItem(row_json['description']),
                     QTableWidgetItem(str(row_json['category_name'])),
                     QTableWidgetItem(str(row_json['status'])),
+                    QTableWidgetItem(str(row_json['location'])),
                     QTableWidgetItem(str(row_json['citizen_name'])),
                     QTableWidgetItem(row_json['time_submitted'])
                 ]

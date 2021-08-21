@@ -17,7 +17,7 @@ class UsersTable(QTableWidget):
 
     def __init__(self):
         super(UsersTable, self).__init__()
-        self.header_list = ['ID', 'Email', 'Name', 'Type', 'Last Login']
+        self.header_list = ['ID', 'Email', 'Name', 'Type', 'Address', 'Last Login']
         self.columns = len(self.header_list)
         self.url = SERVER_URL + EP_USERS
         self.setup_elements()
@@ -74,6 +74,7 @@ class UsersTable(QTableWidget):
                     QTableWidgetItem(str(row_json['user_id'])),
                     QTableWidgetItem(row_json['email']),
                     QTableWidgetItem(str(row_json['name'])),
+                    QTableWidgetItem(str(row_json['address'])),
                     QTableWidgetItem(str(row_json['is_employee'])),
                     QTableWidgetItem(str(row_json['last_login']))
                 ]
@@ -91,7 +92,7 @@ class CitizensTable(QTableWidget):
 
     def __init__(self):
         super(CitizensTable, self).__init__()
-        self.header_list = ['ID', 'Email', 'Name', 'Last Login']
+        self.header_list = ['ID', 'Email', 'Name', 'Address', 'Last Login']
         self.columns = len(self.header_list)
         self.url = SERVER_URL + EP_CITIZENS
         self.setup_elements()
@@ -148,6 +149,7 @@ class CitizensTable(QTableWidget):
                     QTableWidgetItem(str(row_json['user_id'])),
                     QTableWidgetItem(row_json['email']),
                     QTableWidgetItem(str(row_json['name'])),
+                    QTableWidgetItem(str(row_json['address'])),
                     QTableWidgetItem(str(row_json['last_login']))
                 ]
                 for column in range(self.columns):
@@ -164,7 +166,7 @@ class EmployeesTable(QTableWidget):
 
     def __init__(self):
         super(EmployeesTable, self).__init__()
-        self.header_list = ['ID', 'Email', 'Name', 'Last Login']
+        self.header_list = ['ID', 'Email', 'Name', 'Address', 'Last Login']
         self.columns = len(self.header_list)
         self.url = SERVER_URL + EP_EMPLOYEES
         self.setup_elements()
@@ -221,6 +223,7 @@ class EmployeesTable(QTableWidget):
                     QTableWidgetItem(str(row_json['user_id'])),
                     QTableWidgetItem(row_json['email']),
                     QTableWidgetItem(str(row_json['name'])),
+                    QTableWidgetItem(str(row_json['address'])),
                     QTableWidgetItem(str(row_json['last_login']))
                 ]
                 for column in range(self.columns):
