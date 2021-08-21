@@ -204,8 +204,10 @@ class CategoriesTableWidget(QTableWidget):
         table_header.setDefaultSectionSize(150)
         table_header.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
         table_header.setSectionResizeMode(QHeaderView.Stretch)
+        table_header.setSectionResizeMode(0, QHeaderView.Fixed)
         table_header.setSortIndicatorShown(True)
         self.setSortingEnabled(True)
+        self.setColumnWidth(0, 50)
 
     def fetch_n_show(self):
         """

@@ -114,12 +114,14 @@ class ComplaintsTable(QTableWidget):
         self.setSelectionMode(QAbstractItemView.SingleSelection)
         self.setSelectionBehavior(QAbstractItemView.SelectRows)
         table_header = self.horizontalHeader()
-        table_header.setMinimumSectionSize(150)
+        table_header.setMinimumSectionSize(80)
         table_header.setDefaultSectionSize(150)
         table_header.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
         table_header.setSectionResizeMode(QHeaderView.Interactive)
         table_header.setSortIndicatorShown(True)
         self.setSortingEnabled(True)
+        self.setColumnWidth(0, 80)
+        self.setColumnWidth(1, 300)
 
     def fetch_n_show(self):
         """

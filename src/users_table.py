@@ -32,12 +32,13 @@ class UsersTable(QTableWidget):
         self.setHorizontalHeaderLabels(self.header_list)
         self.setAlternatingRowColors(True)
         table_header = self.horizontalHeader()
-        table_header.setMinimumSectionSize(150)
-        table_header.setDefaultSectionSize(150)
+        table_header.setMinimumSectionSize(80)
+        table_header.setDefaultSectionSize(200)
         table_header.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
         table_header.setSectionResizeMode(QHeaderView.Interactive)
         table_header.setSortIndicatorShown(True)
         self.setSortingEnabled(True)
+        self.setColumnWidth(0, 80)
 
     def fetch_n_show(self):
         """
@@ -105,12 +106,13 @@ class CitizensTable(QTableWidget):
         self.setHorizontalHeaderLabels(self.header_list)
         self.setAlternatingRowColors(True)
         table_header = self.horizontalHeader()
-        table_header.setMinimumSectionSize(150)
-        table_header.setDefaultSectionSize(150)
+        table_header.setMinimumSectionSize(80)
+        table_header.setDefaultSectionSize(200)
         table_header.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
         table_header.setSectionResizeMode(QHeaderView.Interactive)
         table_header.setSortIndicatorShown(True)
         self.setSortingEnabled(True)
+        self.setColumnWidth(0, 80)
 
     def fetch_n_show(self):
         """
@@ -177,12 +179,13 @@ class EmployeesTable(QTableWidget):
         self.setHorizontalHeaderLabels(self.header_list)
         self.setAlternatingRowColors(True)
         table_header = self.horizontalHeader()
-        table_header.setMinimumSectionSize(150)
-        table_header.setDefaultSectionSize(150)
+        table_header.setMinimumSectionSize(80)
+        table_header.setDefaultSectionSize(200)
         table_header.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
         table_header.setSectionResizeMode(QHeaderView.Interactive)
         table_header.setSortIndicatorShown(True)
         self.setSortingEnabled(True)
+        self.setColumnWidth(0, 80)
 
     def fetch_n_show(self):
         """
